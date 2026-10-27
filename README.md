@@ -32,13 +32,14 @@ acres_treated: Number of treated acres by the prescribed fire | Units: number
 gis_acres_treated: Number of treated acres calculated in GIS | Units: number
 Shape_Length: Perimeter of fire polygon in GIS | Units: meters
 Shape_Area: Area of fire polygon in GIS | Units: square meters
-fire_polygon: Spatially defined geometric polygon of the prescribed fire burn area | Units: multipolygon file
+geometry: Spatially defined geometric polygon of the prescribed fire burn area | Units: multipolygon file
 ​
 Invasive Flora Species Data(iNaturalist):
    Each row represents one observation of an invasive species on iNaturalist in the state of California.
 ​
+id: unique identification number for each observation | Units: text
 observation_date: calendar date when the species was observed | Units: Date (YYYY-MM-DD)
 location: location described by the iNaturalist observer| Units: text
-geometry: Observation location from the publicly visible latitude and longitude | Units: points
 scientific_name: scientific name of the observed taxon in iNaturalist | Units: text
 common_name: common name of the observed taxon in iNaturalist | Units: text
+geometry: Observation location from the publicly visible latitude and longitude | Units: points
