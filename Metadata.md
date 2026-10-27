@@ -11,26 +11,25 @@ Data download: https://www.inaturalist.org/observations/export?verifiable=true&p
 iNaturalist Query of iMapInvasives: USA and Canada Invasive Species dataset on 10/19/2026: “quality_grade=any&identifications=any&iconic_taxa%5B%5D=Plantae&place_id=14&verifiable=true&projects%5B%5D=imapinvasives-usa-and-canada-invasive-species&spam=false”
 Selects all verifiable observations of plant invasive species in California
 
-Expected Variables:
+Data Dictionary:
 
 Prescribed Fire Data:
-Fire ID: OBJECTID
-Year: YEAR_
-Name of state: STATE
-Name of protection agency that conducted the burn: AGENCY
-Firefighting unit code: UNIT_ID
-Fire treatment ID: TREATMENT_ID
-Fire treatment Name: TREATMENT_NAME
-Fire treatment Type: TREATMENT_TYPE	
-Start date of fire: START_DATE
-End date of fire: END_DATE
-Number of treated acres: TREATED_AC
-Number of treated acres in GIS:GIS_ACRES
-Fuel consumption index: RX_CONSUM
-Vegetation and fire regime state before fire: PRE_CON_CLASS
-Vegetation and fire regime state post fire: POST_CON_CLASS
-Perimeter of fire polygon in GIS: Shape_Length
-Area of fire polygon in GIS: Shape_Area
+year: Year in which the prescribed burn occurred
+agency: Name of protection agency that conducted the burn
+treatment_name: Name of the prescribed burn
+treatment_type: type of prescribed burn according to the following:
+    1 - Broadcast Burn
+    2 - Fire Use
+    3 - Hand Pile Burn
+    4 - Jackpot Burn
+    5 - Machine Pile Burn
+start_date: Start date of fire
+end_date: End date of fire
+acres_treated: Number of treated acres by the prescribed fire
+gis_acres_treated: Number of treated acres calculated in GIS
+Shape_Length: Perimeter of fire polygon in GIS
+Shape_Area: Area of fire polygon in GIS
+fire_polygon: Spatially defined geometric polygon of the prescribed fire burn area
 
 iNaturalist California Invasive Species Data: 
 iNaturalist Observation ID: id
