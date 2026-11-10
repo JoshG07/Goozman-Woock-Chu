@@ -1,11 +1,12 @@
 # Invasive plants in California dashboard
 # Run with:  shiny run --reload app.py
 #
-# Reads four files you save from your notebooks first:
-#   Data/processed/cal_outline.gpkg
-#   Data/processed/invasives_within_year.gpkg
-#   Data/processed/inaturalist_cleaned.gpkg
-#   Data/processed/invasives_summary_wide_nice.csv
+# Reads four files from the repo's data/processed folder
+# (one level up from this project folder):
+#   data/processed/cal_outline.gpkg
+#   data/processed/invasives_within_year.gpkg
+#   data/processed/inaturalist_gdf_cleaned.gpkg
+#   data/processed/invasives_summary_wide_nice.csv
 
 from pathlib import Path
 
@@ -17,8 +18,9 @@ from shiny import App, reactive, render, ui
 
 # %%
 # SETUP
-project_path = Path(__file__).parent.resolve()
-data_path = project_path / "Data" / "processed"
+# app.py lives in project/, so go up one folder to reach data/processed
+repo_path = Path(__file__).resolve().parent.parent
+data_path = repo_path / "data" / "processed"
 
 # Data for the prescribed fire map and bar chart
 cal_outline = gpd.read_file(data_path / "cal_outline.gpkg")
@@ -36,7 +38,7 @@ palette = ["#2f6b8f", "#d08c1f", "#6a8f3b", "#8a4f7d"]
 colors = {cat: palette[i % len(palette)] for i, cat in enumerate(categories)}
 
 # Data for the species search map
-observations = gpd.read_file(data_path / "inaturalist_cleaned.gpkg")
+observations = gpd.read_file(data_path / "inaturalist_gdf_cleaned.gpkg")
 names = sorted(observations["common_name"].dropna().astype(str).unique().tolist())
 xmin, ymin, xmax, ymax = observations.total_bounds
 
