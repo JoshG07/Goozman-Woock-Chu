@@ -1,5 +1,5 @@
 # Invasive plants in California dashboard
-# Run in command prompt terminal after activating environment:  cd project && shiny run --reload app.py
+# Run in command prompt terminal after activating environment:  shiny run --reload app.py
 #
 # Reads four files from the repo's data/processed folder
 # (one level up from this project folder):
@@ -19,7 +19,7 @@ from shiny import App, reactive, render, ui
 # %%
 # SETUP
 # app.py lives in project/, so go up one folder to reach data/processed
-root_fldr = Path.cwd().parent
+root_fldr = Path.cwd()
 processed_fldr = root_fldr/'data'/'processed'
 data_path = processed_fldr
 
