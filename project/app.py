@@ -1,12 +1,12 @@
 # Invasive plants in California dashboard
-# Run with:  shiny run --reload app.py
+# Run in command prompt terminal after activating environment:  cd project && shiny run --reload app.py
 #
 # Reads four files from the repo's data/processed folder
 # (one level up from this project folder):
 #   data/processed/cal_outline.gpkg
 #   data/processed/invasives_within_year.gpkg
 #   data/processed/inaturalist_gdf_cleaned.gpkg
-#   data/processed/invasives_summary_wide_nice.csv
+#   data/processed/invasives_summary_table.csv
 
 from pathlib import Path
 
@@ -19,16 +19,16 @@ from shiny import App, reactive, render, ui
 # %%
 # SETUP
 # app.py lives in project/, so go up one folder to reach data/processed
-repo_path = Path(__file__).resolve().parent.parent
-data_path = repo_path / "data" / "processed"
+root_fldr = Path.cwd().parent
+processed_fldr = root_fldr/'data'/'processed'
+data_path = processed_fldr
 
 # Data for the prescribed fire map and bar chart
 cal_outline = gpd.read_file(data_path / "cal_outline.gpkg")
 invasives = gpd.read_file(data_path / "invasives_within_year.gpkg")
 invasives = invasives.to_crs(cal_outline.crs)
 
-# Column that holds the fire year. Change this to match your data,
-# or leave it and the year slider will simply not appear.
+# Column that holds the fire year. 
 YEAR_COL = "year"
 has_year = YEAR_COL in invasives.columns
 
@@ -43,15 +43,7 @@ names = sorted(observations["common_name"].dropna().astype(str).unique().tolist(
 xmin, ymin, xmax, ymax = observations.total_bounds
 
 # Data for the summary table
-summary_table = pd.read_csv(data_path / "invasives_summary_wide_nice.csv")
-
-# Drop the plain row-number column pandas adds when saving, if there is one
-first_col = summary_table.columns[0]
-if first_col.startswith("Unnamed"):
-    if summary_table[first_col].tolist() == list(range(len(summary_table))):
-        summary_table = summary_table.drop(columns=first_col)
-    else:
-        summary_table = summary_table.rename(columns={first_col: "Species"})
+summary_table = pd.read_csv(data_path / "invasives_summary_table.csv")
 
 # Keep only the columns we want to show
 summary_table = summary_table.loc[:, ["common_name", "Before", "After"]]
@@ -68,9 +60,9 @@ species_col = next(
 
 # Sidebar filters, grouped by section
 sidebar_items = [
-    ui.h5("Prescribed fire map and chart"),
+    ui.h5("Invasives in Prescribed Fire Areas Map"),
     ui.input_checkbox_group(
-        "timing", "Observation timing", choices=categories, selected=categories
+        "timing", "Observation Timing", choices=categories, selected=categories
     ),
 ]
 if has_year:
@@ -87,7 +79,7 @@ if has_year:
     )
 sidebar_items += [
     ui.hr(),
-    ui.h5("Species map and table"),
+    ui.h5("Invasive Species Map and Table"),
     ui.input_selectize(
         "species",
         "Search by common name",
@@ -119,10 +111,11 @@ app_ui = ui.page_sidebar(
         ui.output_plot("species_counts", height="650px"),
     ),
     ui.card(
-        ui.card_header("Summary of invasive species observed before and after prescribed burns"),
-        ui.output_data_frame("summary_table_out"),
+        ui.card_header("Counts of invasive species within 1 year of a prescribed burn"),
+        ui.output_text("summary_warning"),
+        ui.output_data_frame("summary_table_out")
     ),
-    title="Invasive Plants in California",
+    title="How Prescribed Burns Impact Invasive Plants in California",
 )
 
 
@@ -209,6 +202,7 @@ def server(input, output, session):
     @render.plot
     def species_map():
         fig, ax = plt.subplots(figsize=(6, 7))
+        cal_outline.boundary.plot(ax=ax, color="black", linewidth=0.5)
 
         # All observations in light grey for context
         observations.plot(ax=ax, color="lightgrey", markersize=1)
@@ -228,9 +222,22 @@ def server(input, output, session):
     def summary_table_out():
         selected = input.species()
         df = summary_table
-        if selected and species_col is not None:
-            df = df[df[species_col].astype(str).isin(selected)]
+        if selected:
+            df = df[df["common_name"].isin(selected)]
+            if df.empty:
+                return None
         return render.DataGrid(df, filters=True, height="450px")
+
+    @render.text
+    def summary_warning():
+        selected = input.species()
+        if selected:
+            filtered = summary_table[
+                summary_table["common_name"].isin(selected)
+            ]
+            if filtered.empty:
+                return "No observations within 1 year of a prescribed fire for the selected species."
+        return ""
 
 
 app = App(app_ui, server)
