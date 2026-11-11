@@ -115,7 +115,13 @@ app_ui = ui.page_sidebar(
         ui.output_text("summary_warning"),
         ui.output_data_frame("summary_table_out")
     ),
-    title="How Prescribed Burns Impact Invasive Plants in California",
+    title=ui.div(
+        ui.h3("How Prescribed Burns Impact Invasive Plants in California", class_="mb-1"),
+        ui.div("Central question: Are there shifts in invasive plant species presence before and after a prescribed burn takes place?", class_="fs-5 text-muted"),
+        ui.div("Intended audience: Land managers looking into the impacts of prescribed burns on invasive species presence", class_="fs-5 text-muted"),
+        ui.div("(This dashboard was created with the assistance of AI)", class_="fs-9 text-muted")
+    ),
+    window_title="How Prescribed Burns Impact Invasive Plants in California",
 )
 
 
