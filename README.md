@@ -43,3 +43,13 @@ location: location described by the iNaturalist observer| Units: text
 scientific_name: scientific name of the observed taxon in iNaturalist | Units: text
 common_name: common name of the observed taxon in iNaturalist | Units: text
 geometry: Observation location from the publicly visible latitude and longitude | Units: points
+
+
+Access the published dahboard via this link: https://01a1c78c-4a9a-8566-e326-59a59e32fc52.share.connect.posit.cloud/ 
+
+
+Our Analysis:
+1. Downloaded and cleaned iNaturalist and CAL Fire datasets by renaming and removing unnecessary columns, adding spatial features to the tables, checking for duplicate data, and removing missing values.
+2. Performed a data quality audit on each of the joined datasets, resulting in preliminary plots and tables of invasive species observations in prescribed burn areas.
+3. Developed specific plots and tables, such as a map of invasive species found before and after prescribed burns from our cleaned datasets to answer our research questions.
+4. Generated a dashboard using the plots, tables, and figures from before while adding interactive components.
