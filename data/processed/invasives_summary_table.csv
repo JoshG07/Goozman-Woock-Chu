@@ -5,12 +5,12 @@
 3,Annual beard grass,0,1
 4,Annual yellow sweetclover,1,0
 5,Artichoke,0,2
-6,Bermuda buttercup,1,0
+6,Bermuda buttercup,2,0
 7,Big heron bill,1,1
 8,Black mustard,1,0
 9,Bristly ox-tongue,1,0
 10,Bulbous blue grass,1,1
-11,Bullthistle,1,2
+11,Bullthistle,2,3
 12,Buttercup,1,1
 13,Cardoon,0,1
 14,Common fig,0,1
@@ -19,76 +19,84 @@
 17,Cotoneaster,14,0
 18,Dallis grass,0,1
 19,Dog fennel,0,13
-20,Dwarf pearlwort,0,1
-21,Eggleaf spurge,2,4
-22,Endive daisy,2,0
-23,English ivy,0,1
-24,Feather finger grass,1,1
-25,Fennel,2,4
-26,Field bindweed,0,1
-27,Field madder,0,1
-28,Four seeded vetch,1,0
-29,Foxtail barley,1,0
-30,French broom,2,4
-31,Goat's beard,0,2
-32,Green foxtail,0,1
-33,Hairy bitter cress,1,0
-34,Hairy vetch,1,0
-35,Harding grass,3,105
-36,Hedge mustard,1,4
-37,Himalayan blackberry,5,4
-38,Italian rye grass,4,0
-39,Jersey cudweed,0,1
-40,Johnsongrass,1,0
-41,Jointed charlock,1,6
-42,Lambs quarters,0,1
-43,Large mouse ears,1,0
-44,Little rattlesnake grass,1,1
-45,Mediterranean lineseed,0,1
-46,Medusa head,1,205
-47,Milk thistle,0,3
-48,Moth mullein,0,1
-49,Mustard,1,0
-50,Oxe eye daisy,7,4
-51,Pampas grass,1,0
-52,Pennyroyal,1,0
-53,Poison hemlock,1,0
-54,Prickly lettuce,0,1
-55,Pride of madeira,3,0
-56,Puncture vine,1,1
-57,Purple loosestrife,0,1
-58,Purple star thistle,0,7
-59,Rattlesnake grass,2,1
-60,Rose clover,1,0
-61,Rosy sandcrocus,0,1
-62,Russian olive,1,0
-63,Russian thistle,2,0
-64,Scotch broom,1,2
-65,Shepherd's needle,0,1
-66,Shore vervain,0,1
-67,Six petal water primrose,1,0
-68,Skeleton weed,1,0
-69,Slim oat,1,0
-70,Soft chess,1,0
-71,Spanish broom,0,1
-72,Spiny sowthistle,1,0
-73,Stinknet,1,0
-74,Stinkwort,8,101
-75,Sweet pea,1,0
-76,Thoroughwort,4,1
-77,Tocalote,0,7
-78,Tree tobacco,1,1
-79,Tumble mustard,0,1
-80,Upright veldt grass,3,3
-81,Wand mullein,0,1
-82,Water milfoil,0,1
-83,White sweetclover,1,0
-84,Whitestem filaree,1,0
-85,Whitlow grass,1,0
-86,Wild geranium,1,0
-87,Wild teasel,1,1
-88,Woolly mullein,1,0
-89,Yellow glandweed,0,1
-90,Yellow parentucellia,0,2
-91,Yellow starthistle,4,67
-92,Yellowflag iris,1,0
+20,Downy chess,1,1
+21,Dwarf pearlwort,0,1
+22,Dyers woad,0,1
+23,Eggleaf spurge,3,5
+24,Endive daisy,2,0
+25,English ivy,0,1
+26,Feather finger grass,1,1
+27,Fennel,12,10
+28,Field bindweed,0,1
+29,Field madder,0,1
+30,Four seeded vetch,1,0
+31,Foxtail barley,1,0
+32,French broom,3,4
+33,Giant reed,2,0
+34,Goat's beard,1,2
+35,Gorse,22,4
+36,Green foxtail,0,1
+37,Hairy bitter cress,1,0
+38,Hairy vetch,1,0
+39,Harding grass,3,105
+40,Hedge mustard,1,4
+41,Herniaria,1,1
+42,Himalayan blackberry,5,4
+43,Italian rye grass,4,0
+44,Jersey cudweed,0,1
+45,Jerusalem oak goosefoot,1,1
+46,Johnsongrass,1,0
+47,Jointed charlock,1,6
+48,Lambs quarters,0,1
+49,Large mouse ears,1,0
+50,Little rattlesnake grass,1,1
+51,Mediterranean lineseed,0,1
+52,Medusa head,2,205
+53,Milk thistle,0,3
+54,Missouri lambsquarters,1,1
+55,Moth mullein,0,1
+56,Mustard,1,0
+57,Oxe eye daisy,7,4
+58,Pampas grass,1,0
+59,Pennyroyal,1,0
+60,Poison hemlock,1,0
+61,Prickly lettuce,1,1
+62,Pride of madeira,3,0
+63,Puncture vine,1,1
+64,Purple loosestrife,0,1
+65,Purple star thistle,0,7
+66,Rattlesnake grass,2,1
+67,Rose clover,1,0
+68,Rosy sandcrocus,0,1
+69,Russian olive,1,0
+70,Russian thistle,2,0
+71,Scotch broom,2,13
+72,Shepherd's needle,0,1
+73,Shore vervain,0,1
+74,Six petal water primrose,1,0
+75,Skeleton weed,1,1
+76,Slim oat,1,0
+77,Soft chess,1,0
+78,Spanish broom,0,1
+79,Spiny sowthistle,1,0
+80,Stinknet,2,0
+81,Stinkwort,9,101
+82,Sweet pea,1,0
+83,Sweetwilliam,1,1
+84,Thoroughwort,4,1
+85,Tocalote,0,7
+86,Tree tobacco,1,1
+87,Tumble mustard,0,1
+88,Upright veldt grass,3,3
+89,Wand mullein,0,1
+90,Water milfoil,0,1
+91,White sweetclover,1,0
+92,Whitestem filaree,1,0
+93,Whitlow grass,1,0
+94,Wild geranium,1,0
+95,Wild teasel,1,1
+96,Woolly mullein,1,0
+97,Yellow glandweed,0,1
+98,Yellow parentucellia,0,2
+99,Yellow starthistle,4,67
+100,Yellowflag iris,1,0
