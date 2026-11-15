@@ -5,7 +5,7 @@
 # (one level up from this project folder):
 #   data/processed/cal_outline.gpkg
 #   data/processed/invasives_within_year.gpkg
-#   data/processed/inaturalist_gdf_cleaned.gpkg
+#   data/processed/calflora_full_cleaned.gpkg
 #   data/processed/invasives_summary_table.csv
 
 from pathlib import Path
@@ -38,7 +38,7 @@ palette = ["#2f6b8f", "#d08c1f", "#6a8f3b", "#8a4f7d"]
 colors = {cat: palette[i % len(palette)] for i, cat in enumerate(categories)}
 
 # Data for the species search map
-observations = gpd.read_file(data_path / "inaturalist_gdf_cleaned.gpkg")
+observations = gpd.read_file(data_path / "calflora_full_cleaned.gpkg")
 names = sorted(observations["common_name"].dropna().astype(str).unique().tolist())
 xmin, ymin, xmax, ymax = observations.total_bounds
 
