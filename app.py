@@ -29,7 +29,7 @@ invasives = gpd.read_file(data_path / "invasives_within_year.gpkg")
 invasives = invasives.to_crs(cal_outline.crs)
 
 # Column that holds the fire year. 
-YEAR_COL = "year"
+YEAR_COL = "year_right"
 has_year = YEAR_COL in invasives.columns
 
 # Fixed color for each before/after category so colors match across figures
@@ -102,7 +102,7 @@ app_ui = ui.page_sidebar(
             ui.output_plot("fire_map", height="600px"),
         ),
         ui.card(
-            ui.card_header("Invasive plant species observations, 2009 to 2026"),
+            ui.card_header("Invasive plant species observations, 2016 to 2026"),
             ui.output_plot("species_map", height="600px"),
         ),
     ),
@@ -167,6 +167,9 @@ def server(input, output, session):
     @render.plot
     def species_counts():
         df = fire_filtered()
+        # Keep species with at least 5 observations
+        species_counts = df["common_name"].value_counts()
+        df = df[df["common_name"].isin(species_counts[species_counts >= 5].index)]
         fig, ax = plt.subplots(figsize=(9, 8))
 
         if len(df) == 0:
@@ -177,19 +180,38 @@ def server(input, output, session):
             ax.axis("off")
             return fig
 
-        hue_order = [c for c in ["after", "before"] if c in df["before_after"].unique()]
-        sns.histplot(
+        hue_order = ["before", "after"]
+
+        species_order = (
+            df["common_name"]
+            .value_counts()
+            .index
+            .tolist()
+        )
+
+        sns.countplot(
             data=df,
             y="common_name",
+            dodge=True,
             hue="before_after",
             hue_order=hue_order,
             palette=colors,
-            multiple="stack",
+            edgecolor="black",
+            linewidth=0.5,
+            order=species_order,
             ax=ax,
         )
-        ax.set(xlabel="Count", ylabel="Invasive Species")
+
+        ax.set(
+            xlabel="Count",
+            ylabel="Invasive Species",
+            title="Counts of Invasive Species observed 5+ times within 1 Year of a Prescribed Burn",
+            xlim=(0, 225),
+        )
+
         if ax.get_legend() is not None:
             ax.get_legend().set_title("Observation Relative to Fire")
+
         fig.tight_layout()
         return fig
 
