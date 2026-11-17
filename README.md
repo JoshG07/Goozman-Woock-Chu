@@ -12,7 +12,7 @@ Audience: Environmental land managers
 
 ## Data Dictionary:
 ### Prescribed Fire Data(CAL FIRE):
-   Each row represents one prescribed fire in the state of California
+*Each row represents one prescribed fire in the state of California*
 ​
 
 Year: calendar year the prescribed burn took place | Units: date (YYYY)
@@ -47,8 +47,9 @@ geometry: Spatially defined geometric polygon of the prescribed fire burn area |
 
 
 ### Invasive Flora Species Data(Calflora):
-   Each row represents one observation of an invasive species on Calflora in the state of California.
+*Each row represents one observation of an invasive species on Calflora in the state of California.*
 ​
+
 id: unique identification code for each observation | Units: text
 
 common_name: common name of the observed taxon in Calflora | Units: text
