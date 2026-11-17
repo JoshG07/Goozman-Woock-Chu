@@ -1,12 +1,14 @@
 # Invasive plants in California dashboard
 # Run in command prompt terminal after activating environment:  shiny run --reload app.py
 #
-# Reads four files from the repo's data/processed folder
-# (one level up from this project folder):
+# Reads files from the repo's data/processed folder
 #   data/processed/cal_outline.gpkg
 #   data/processed/invasives_within_year.gpkg
 #   data/processed/calflora_full_cleaned.gpkg
 #   data/processed/invasives_summary_table.csv
+#   data/processed/full_shared_species.csv
+#   data/processed/burn_counts.csv
+
 
 from pathlib import Path
 
@@ -54,6 +56,11 @@ species_col = next(
     (c for c in summary_table.columns if summary_table[c].astype(str).isin(name_set).any()),
     None,
 )
+# Data for the boxplots
+full_shared_species = pd.read_csv(data_path / "full_shared_species.csv")
+
+# Data for the swarm plots
+burn_counts = pd.read_csv(data_path / "burn_counts.csv")
 
 # %%
 # USER INTERFACE
@@ -111,9 +118,32 @@ app_ui = ui.page_sidebar(
         ui.output_plot("species_counts", height="650px"),
     ),
     ui.card(
-        ui.card_header("Counts of invasive species within 1 year of a prescribed burn"),
+        ui.card_header("Counts of invasive species within one year of a prescribed burn"),
         ui.output_text("summary_warning"),
         ui.output_data_frame("summary_table_out")
+    ),
+    ui.layout_columns(
+        ui.card(
+            ui.card_header("Changes in Invasive Species Populations Pre- and Post-Fire"),
+            ui.output_plot("species_change_boxplot", height="500px"),
+            ui.p(
+                "Slope regressions were calculated for each species to evaluate overall "
+                "trends. A t-test was conducted on these slopes to compare the presence of "
+                "species in burned and unburned areas. The results were not statistically "
+                "significant (p = 0.230). However, there does appear to be a general trend "
+                "where invasive plants are more likely to spread after a prescribed burn "
+                "compared to unburned areas. "
+        ),
+        ),
+        ui.card(
+            ui.card_header("Changes in Invasive Species in Response to Single and Repeated Burns"),
+            ui.output_plot("burn_history_plot", height="500px"),
+            ui.p(
+                "A t-test was conducted comparing invasive species trends in areas after "
+                "a single prescribed burn versus repeated prescribed burns. The results "
+                "were not statistically significant (p = 0.212)."
+            )
+        )
     ),
     title=ui.div(
         ui.h3("How Prescribed Burns Impact Invasive Plants in California", class_="mb-1"),
@@ -239,8 +269,7 @@ def server(input, output, session):
         if input.species():
             species_filtered().plot(ax=ax, markersize=6, color="#2f6b8f")
 
-        ax.set_xlim(xmin, xmax)
-        ax.set_ylim(ymin, ymax)
+
         ax.set_xlabel("Eastings")
         ax.set_ylabel("Northings")
         return fig
@@ -266,6 +295,70 @@ def server(input, output, session):
             if filtered.empty:
                 return "No observations within 1 year of a prescribed fire for the selected species."
         return ""
+
+    # ---------- Boxplot of changes in invasive species populations ----------
+    @render.plot
+    def species_change_boxplot():
+        fig, ax = plt.subplots(figsize=(6, 6))
+
+        sns.boxplot(
+            data=full_shared_species,
+            x="burned",
+            y="slope",
+            medianprops={"color": "black", "linewidth": 2.5},
+            ax=ax,
+        )
+
+        ax.set_yscale("symlog", linthresh=0.1)
+        ax.axhline(0, color="black", linestyle="--")
+        ax.set_xticks([0, 1], ["Unburned", "Burned"])
+
+        ax.set_title(
+            "Change in Observations Pre- and Post-Fire",
+            fontsize=12,
+            pad = 25
+        )
+        ax.text(
+            0.5, 1.02,
+            "For species present both pre- and post-fire",
+            transform=ax.transAxes,
+            ha="center",
+            fontsize=9,
+        )
+        ax.set_xlabel("")
+        ax.set_ylabel("Annual Change in Observations")
+
+        fig.tight_layout()
+        return fig
+
+    # ---------- Swarm plot of change by burn history ----------
+    @render.plot
+    def burn_history_plot():
+        fig, ax = plt.subplots(figsize=(6, 6))
+
+        sns.swarmplot(
+            data=burn_counts,
+            x="burn_type",
+            y="change",
+            hue="burn_type",
+            order=["single", "repeat"],
+            hue_order=["single", "repeat"],
+            legend=False,
+            size=6,
+            ax=ax,
+        )
+
+        ax.axhline(y=0, color="gray", linestyle="--")
+
+        ax.set(
+            title="Change in Observations Based on Site Burn History",
+            xlabel="",
+            ylabel="Change in Observations",
+            ylim=(-25, 25),
+        )
+
+        fig.tight_layout()
+        return fig
 
 
 app = App(app_ui, server)
