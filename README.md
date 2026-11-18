@@ -62,4 +62,4 @@ Data source: [CalFire File Geodatabase](https://publish.data.ca.gov/dataset/cali
 7. Generated a dashboard using the plots, tables, and figures from before while adding interactive components.
 
 ## Dashboard:
-Access the published dahboard via this link: https://01a1c78c-4a9a-8566-e326-59a59e32fc52.share.connect.posit.cloud/ 
+Access the published dahboard via this link: https://01a1e7b3-3067-2588-4183-5095949cf0a3.share.connect.posit.cloud  
