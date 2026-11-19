@@ -105,7 +105,7 @@ app_ui = ui.page_sidebar(
     ),
     ui.layout_columns(
         ui.card(
-            ui.card_header("Invasive plant observations within one year of a prescribed fire"),
+            ui.card_header("Invasive plant observations within one year of a prescribed fire, 2017 to 2025"),
             ui.output_plot("fire_map", height="600px"),
         ),
         ui.card(
